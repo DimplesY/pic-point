@@ -4,7 +4,7 @@
 
 	let collapse = $state(false);
 	let inputFileRef: HTMLInputElement;
-	let imageUrl = $state<string>();
+	let imageUrl = $state<string>('');
 	let canvasRef: HTMLDivElement;
 	let stage: Konva.Stage;
 	let image: Konva.Image;
@@ -64,6 +64,19 @@
 		imageLayer.findOne('#point')?.destroy?.();
 	}
 
+	async function dropImage(e: DragEvent) {
+		e.preventDefault();
+		if (e.type === 'drop') {
+			const file = e?.dataTransfer?.files?.[0];
+			if (file) {
+				imageUrl = URL.createObjectURL(file);
+				await tick();
+				loadImage();
+			}
+		}
+
+	}
+
 </script>
 
 <main class="w-full h-screen bg-background flex text-foreground">
@@ -96,7 +109,11 @@
 		<div
 			class="border-solid bg-card rounded-lg h-full w-full border border-border overflow-hidden"
 		>
-			<button class={["w-full h-full place-content-center", !imageUrl ? 'gird':'hidden' ]} onclick={pickImgFile}>
+			<button class={["w-full h-full place-content-center", !imageUrl ? 'gird':'hidden' ]}
+							ondragenter={dropImage}
+							ondragover={dropImage}
+							ondragleave={dropImage}
+							ondrop={dropImage}>
 				点击或拖拽上传文件
 			</button>
 			<div bind:this={canvasRef} class={["w-full h-full place-content-center", imageUrl ? 'gird':'hidden' ]}></div>
