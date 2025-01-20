@@ -113,7 +113,9 @@
 							ondragenter={dropImage}
 							ondragover={dropImage}
 							ondragleave={dropImage}
-							ondrop={dropImage}>
+							ondrop={dropImage}
+							onclick={pickImgFile}
+			>
 				点击或拖拽上传文件
 			</button>
 			<div bind:this={canvasRef} class={["w-full h-full place-content-center", imageUrl ? 'gird':'hidden' ]}></div>
