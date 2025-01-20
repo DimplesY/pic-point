@@ -1,0 +1,13 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+@layer base {
+    :root {
+        --background: #090a05;
+        --foreground: #fefefc;
+        --card: #151513;
+        --border: #1f1f1d;
+    }
+}
